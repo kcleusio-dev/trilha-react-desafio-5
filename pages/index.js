@@ -12,11 +12,12 @@ export default function Index({ posts, globalData }) {
   return (
     <Layout>
       <SEO title={globalData.name} description={globalData.blogTitle} />
-      <Header name={globalData.name} />
+      <Header name={globalData.name}/>
       <main className="w-full">
         <h1 className="text-3xl lg:text-5xl text-center mb-12">
           {globalData.blogTitle}
         </h1>
+
         <ul className="w-full">
           {posts.map((post) => (
             <li
@@ -28,9 +29,9 @@ export default function Index({ posts, globalData }) {
                 href={`/posts/${post.id}`}
               >
                 <a className="py-6 lg:py-10 px-6 lg:px-16 block focus:outline-none focus:ring-4">
-                  {post.created_ate && (
-                    <p className="uppercase mb-3 font-bold opacity-60">
-                      {post.created_at}
+                  {post.created_at && (
+                    <p className="text-sm opacity-60">
+                      {new Date(post.created_at).toLocaleDateString()}
                     </p>
                   )}
                   <h2 className="text-2xl md:text-3xl">{post.title}</h2>
@@ -63,6 +64,7 @@ export async function getServerSideProps() {
   const posts = await getPosts();
   const globalData = getGlobalData()
 
+  console.log(posts)
 
   return { props: { posts, globalData } };
 }
